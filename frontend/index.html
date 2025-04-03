@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UR 하우스 모니터링</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">UR 하우스 모니터링</h1>
+        
+        <!-- 크롤링 설정 추가 폼 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">새 모니터링 설정 추가</h5>
+                <form id="crawlConfigForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">설정 이름</label>
+                        <input type="text" class="form-control" id="name" required placeholder="예: 西菅田(にしすげた) 공실 체크">
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">UR 하우스 URL</label>
+                        <input type="url" class="form-control" id="url" required placeholder="https://www.ur-net.go.jp/chintai/...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="interval" class="form-label">확인 주기 (분)</label>
+                        <input type="number" class="form-control" id="interval" value="5" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notificationType" class="form-label">알림 방식</label>
+                        <select class="form-select" id="notificationType" required>
+                            <option value="email">이메일</option>
+                            <option value="telegram">텔레그램</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="emailField">
+                        <label for="notificationTarget" class="form-label">이메일 주소</label>
+                        <input type="email" class="form-control" id="notificationTarget" required>
+                    </div>
+                    <div class="mb-3" id="telegramField" style="display: none;">
+                        <label for="notificationTarget" class="form-label">텔레그램 채팅 ID</label>
+                        <input type="text" class="form-control" id="telegramTarget">
+                        <div class="form-text">텔레그램 봇과 대화를 시작하고 /start 명령어를 입력하면 채팅 ID를 알 수 있습니다.</div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="isActive" checked>
+                        <label class="form-check-label" for="isActive">활성화</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">추가</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 크롤링 설정 목록 -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">모니터링 설정 목록</h5>
+                <div id="crawlConfigList" class="list-group mt-3">
+                    <!-- 설정 목록이 여기에 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 알림 토스트 -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">알림</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
